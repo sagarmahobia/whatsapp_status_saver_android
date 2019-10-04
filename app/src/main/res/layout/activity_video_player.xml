@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="handler"
+            type="com.sagar.statussaver.screens.videoplayer.VideoPlayerActivityHandler" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
+
+        <com.potyvideo.library.AndExoPlayerView
+            android:id="@+id/player"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:andexo_aspect_ratio="aspect_match"
+            app:andexo_full_screen="true"
+            app:andexo_play_when_ready="true"
+            app:andexo_resize_mode="Fit"
+            app:andexo_show_controller="true"
+            app:layout_constraintBottom_toTopOf="@id/save_button"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/save_button"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="?attr/selectableItemBackground"
+            android:onClick="@{()->handler.save()}"
+            android:padding="16dp"
+            android:src="@drawable/ic_save"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent=".5" />
+
+        <ImageView
+            android:id="@+id/share_button"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="?attr/selectableItemBackground"
+            android:onClick="@{()->handler.share()}"
+            android:padding="16dp"
+            android:src="@drawable/ic_share"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent=".5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
