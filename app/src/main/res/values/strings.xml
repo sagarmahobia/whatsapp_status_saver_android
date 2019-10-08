@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">StatusSaver</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Status Saver</string>
+    <string name="nav_header_subtitle">Save WhatsApp Statuses.</string>
     <string name="nav_header_desc">Navigation header</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="saved_statuses">Saved Statuses</string>
 </resources>

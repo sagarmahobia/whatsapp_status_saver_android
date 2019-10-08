@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--    <external-files-path-->
+    <!--        name="photos"-->
+    <!--        path="/StatusSaver/Video" />-->
+    <!--    <external-files-path-->
+    <!--        name="my_images"-->
+    <!--        path="/StatusSaver/Video" />-->
+
+    <external-path
+        name="videos"
+        path="/StatusSaver/Videos" />
+
+    <external-path
+        name="photos"
+        path="/StatusSaver/Photos" />
+</paths>

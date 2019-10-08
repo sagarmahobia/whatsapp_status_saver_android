@@ -4,13 +4,10 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-
+        <item
+            android:id="@+id/savedFragment"
+            android:icon="@drawable/ic_save"
+            android:title="@string/saved_statuses" />
     </group>
-
-    <item android:title="Communicate">
-        <menu>
-         
-        </menu>
-    </item>
 
 </menu>

@@ -2,7 +2,9 @@ package com.sagar.statussaver.screens.main;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -41,6 +43,13 @@ public class MainActivity extends AppCompatActivity implements HasAndroidInjecto
 
         NavigationView navigationView = findViewById(R.id.nav_view);
 
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                return true;
+            }
+        });
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, drawer);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -51,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements HasAndroidInjecto
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, drawer) || super.onSupportNavigateUp();
+//        return super.onSupportNavigateUp();
     }
 
     @Override

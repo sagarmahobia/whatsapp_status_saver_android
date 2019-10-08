@@ -18,25 +18,32 @@ public class PhotosFragmentViewModel extends ViewModel {
     private MutableLiveData<Response> fileResponseModel = new MutableLiveData<>();
 
     public PhotosFragmentViewModel() {
-        load();
     }
 
     MutableLiveData<Response> getFileResponseModel() {
         return fileResponseModel;
     }
 
-    void load() {
-        String path = Environment.getExternalStorageDirectory().toString() + "/WhatsApp/Media/.Statuses";
+    void load(String location) {
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + location;
         File file = new File(path);
 
         List<String> files = new ArrayList<>();
+        if (!file.exists()) {
+            fileResponseModel.setValue(Response.success(new ArrayList<>()));
+            return;
+        }
 
-        for (String fileName : file.list()) {
+        String[] list = file.list();
+        if(list == null){
+            fileResponseModel.setValue(Response.success(new ArrayList<>()));
+            return;
+        }
+        for (String fileName : list) {
             if (fileName.endsWith(".jpg")) {
                 files.add(path + "/" + fileName);
             }
         }
-
 
         List<PhotoModel> photoModels = new ArrayList<>();
 

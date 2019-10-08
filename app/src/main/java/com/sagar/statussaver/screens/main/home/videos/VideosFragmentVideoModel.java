@@ -18,21 +18,30 @@ public class VideosFragmentVideoModel extends ViewModel {
     private MutableLiveData<Response> fileResponseModel = new MutableLiveData<>();
 
     public VideosFragmentVideoModel() {
-        load();
     }
 
     MutableLiveData<Response> getFileResponseModel() {
         return fileResponseModel;
     }
 
-    void load() {
-        String path = Environment.getExternalStorageDirectory().toString() + "/WhatsApp/Media/.Statuses";
+    void load(String location) {
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + location;
 
         File file = new File(path);
-
+        if (!file.exists()) {
+            fileResponseModel.setValue(Response.success(new ArrayList<>()));
+            return;
+        }
         List<String> files = new ArrayList<>();
 
-        for (String fileName : file.list()) {
+        String[] list = file.list();
+
+        if (list == null) {
+            fileResponseModel.setValue(Response.success(new ArrayList<>()));
+            return;
+        }
+
+        for (String fileName : list) {
             if (fileName.endsWith(".mp4")) {
                 files.add(path + "/" + fileName);
             }
@@ -48,8 +57,6 @@ public class VideosFragmentVideoModel extends ViewModel {
         }
 
         Collections.sort(videoModels, (o1, o2) -> Long.compare(o2.getFile().lastModified(), o1.getFile().lastModified()));
-
-
         fileResponseModel.setValue(Response.success(videoModels));
     }
 

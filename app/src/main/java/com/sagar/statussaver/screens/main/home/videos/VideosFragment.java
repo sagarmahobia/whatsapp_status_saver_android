@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.sagar.statussaver.R;
 import com.sagar.statussaver.databinding.FragmentVideosBinding;
 import com.sagar.statussaver.responsewrappers.Response;
+import com.sagar.statussaver.responsewrappers.Status;
 import com.sagar.statussaver.screens.main.home.videos.adapter.VideoModel;
 import com.sagar.statussaver.screens.main.home.videos.adapter.VideosAdapter;
 import com.sagar.statussaver.screens.videoplayer.VideoPlayerActivity;
@@ -31,6 +32,7 @@ import dagger.android.support.AndroidSupportInjection;
  */
 public class VideosFragment extends Fragment {
 
+    private String type;
 
     @Inject
     VideosAdapter adapter;
@@ -44,6 +46,13 @@ public class VideosFragment extends Fragment {
         AndroidSupportInjection.inject(this);
         super.onAttach(context);
     }
+
+    public static VideosFragment getInstance(String type) {
+        VideosFragment videosFragment = new VideosFragment();
+        videosFragment.type = type;
+        return videosFragment;
+    }
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -69,12 +78,31 @@ public class VideosFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        viewModel.load();
+    public void onResume() {
+        super.onResume();
+        if (type.equalsIgnoreCase("whatsapp")) {
+            viewModel.load("/WhatsApp/Media/.Statuses");
+        } else if (type.equalsIgnoreCase("saved")) {
+            viewModel.load("/StatusSaver/Videos");
+        }
     }
 
     private void observeFileResponse(Response<List<VideoModel>> response) {
-        adapter.setVideoModels(response.getData());
+        if (response.getStatus() == Status.ERROR) {
+            return;
+        }
+        if (response.getData().isEmpty()) {
+
+            binding.noStatus.setVisibility(View.VISIBLE);
+            binding.recycler.setVisibility(View.GONE);
+
+        } else {
+            adapter.setVideoModels(response.getData());
+
+            binding.noStatus.setVisibility(View.GONE);
+            binding.recycler.setVisibility(View.VISIBLE);
+
+        }
+
     }
 }

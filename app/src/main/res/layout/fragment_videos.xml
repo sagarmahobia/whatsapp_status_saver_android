@@ -22,5 +22,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:spanCount="2" />
 
+        <TextView
+            android:id="@+id/no_status"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#2C2C2C"
+            android:gravity="center"
+            android:padding="48dp"
+            android:text="Uh ooh. It looks like you don't have any story right now."
+            android:textColor="#C9C9C9"
+            android:textSize="16sp"
+            android:visibility="gone" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

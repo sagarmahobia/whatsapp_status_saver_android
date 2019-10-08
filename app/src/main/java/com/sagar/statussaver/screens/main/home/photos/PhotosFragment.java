@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.sagar.statussaver.R;
 import com.sagar.statussaver.databinding.FragmentPhotosBinding;
 import com.sagar.statussaver.responsewrappers.Response;
+import com.sagar.statussaver.responsewrappers.Status;
 import com.sagar.statussaver.screens.main.home.photos.adapter.PhotoModel;
 import com.sagar.statussaver.screens.main.home.photos.adapter.PhotosAdapter;
 import com.sagar.statussaver.screens.photoviewer.PhotoViewerActivity;
@@ -36,9 +37,16 @@ public class PhotosFragment extends Fragment {
 
     private PhotosFragmentViewModel viewModel;
     private FragmentPhotosBinding binding;
+    private String type;
+
+    public static PhotosFragment getInstance(String type) {
+        PhotosFragment photosFragment = new PhotosFragment();
+        photosFragment.type = type;
+        return photosFragment;
+    }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         AndroidSupportInjection.inject(this);
         super.onAttach(context);
     }
@@ -64,13 +72,31 @@ public class PhotosFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        viewModel.load();
+    public void onResume() {
+        super.onResume();
+        if (type.equalsIgnoreCase("whatsapp")) {
+            viewModel.load("/WhatsApp/Media/.Statuses");
+        } else if (type.equalsIgnoreCase("saved")) {
+            viewModel.load("/StatusSaver/Photos");
+        }
     }
 
     private void observeFileResponse(Response<List<PhotoModel>> response) {
-        adapter.setPhotoModels(response.getData());
+        if (response.getStatus() == Status.ERROR) {
+            return;
+        }
+        if (response.getData().isEmpty()) {
+
+            binding.noStatus.setVisibility(View.VISIBLE);
+            binding.recycler.setVisibility(View.GONE);
+
+        } else {
+            adapter.setPhotoModels(response.getData());
+
+            binding.noStatus.setVisibility(View.GONE);
+            binding.recycler.setVisibility(View.VISIBLE);
+
+        }
     }
 
 }
