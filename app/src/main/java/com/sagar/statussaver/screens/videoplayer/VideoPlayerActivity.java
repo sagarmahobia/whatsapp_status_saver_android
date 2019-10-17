@@ -90,7 +90,9 @@ public class VideoPlayerActivity extends AppCompatActivity implements VideoPlaye
 
         File source = new File(viewModel.getActivityModel().getPath());
 
-        String destinationPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/StatusSaver/Videos/" + source.getName();
+        String destinationPath = Environment
+                .getExternalStorageDirectory()
+                .getAbsolutePath() + "/StatusSaver/Videos/" + source.getName();
         File destination = new File(destinationPath);
 
         if (!destination.exists()) {
