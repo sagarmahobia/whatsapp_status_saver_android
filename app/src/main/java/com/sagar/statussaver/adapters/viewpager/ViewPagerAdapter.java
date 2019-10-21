@@ -1,6 +1,7 @@
 package com.sagar.statussaver.adapters.viewpager;
 
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -19,6 +20,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         super(manager);
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position) {
         return fragments.get(position).fragment;
