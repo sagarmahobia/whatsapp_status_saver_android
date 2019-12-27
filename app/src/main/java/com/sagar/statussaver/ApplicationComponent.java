@@ -16,6 +16,6 @@ public interface ApplicationComponent /*extends AndroidInjector<StatusSaverAppli
         ApplicationComponent create(@BindsInstance Application application);
     }
 
-    void inject(StatusSaverApplication careerPotliApplication);
+    void inject(StatusSaverApplication statusSaverApplication);
 
 }
